@@ -11,7 +11,7 @@ Laravel React Chat App is a real-time chat application that allows users to send
 
 - PHP 8.2
 - Composer
-- Node.js and npm (optional, for asset compilation)
+- Node.js and npm 
 - MySQL or another supported database
 
 ## Installation
