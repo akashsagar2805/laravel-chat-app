@@ -1,6 +1,6 @@
 # Laravel React Chat App
 
-![image](https://github.com/akashsagar2805/laravel-chat-app/assets/55270400/f068ed13-07a1-4ad7-b4d4-75f4ec57f4ae)
+[![image](https://github.com/akashsagar2805/laravel-chat-app/assets/55270400/f068ed13-07a1-4ad7-b4d4-75f4ec57f4ae)](https://github.com/akashsagar2805/laravel-chat-app/assets/55270400/e23c876d-f8a3-4bf7-a5a5-5b0505386d3c)
 
 
 ## Introduction
@@ -55,6 +55,10 @@ Follow these steps to set up the project:
    php artisan reverb:start
    php artisan serve
    The application will be available at http://localhost:8000
+
+
+
+
 
 
 
