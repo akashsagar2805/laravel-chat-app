@@ -2,7 +2,7 @@ import TextInput from '@/Components/TextInput';
 import ConversationItem from '@/Components/App/ConversationItem';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PencilSquareIcon } from '@heroicons/react/24/solid';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { useEventBus } from '@/EventBus';
 import GroupModal from '@/Components/App/GroupModal';
@@ -14,7 +14,7 @@ const ChatLayout = ({ children }) => {
     const [sortedConversations, setSortedConversations] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState({});
     const [showGroupModal, setShowGroupModal] = useState(false);
-    const { on } = useEventBus();
+    const { emit,on } = useEventBus();
 
     const isUserOnline = (userId) => onlineUsers[userId];
     const onSearch = (ev) => {
@@ -87,10 +87,26 @@ const ChatLayout = ({ children }) => {
         const offModalShow = on("GroupModal.show", (group) => {
             setShowGroupModal(true);
         });
+        const offGroupDelete = on("group.deleted", ({id, name}) => {
+            setLocalConversations((oldConversations) => {
+                return oldConversations.filter((con) => con.id != id);
+            });
+
+            // emit('toast.show', `Group "${name}" deleted`); need to fix this later
+
+            if (
+                !selectedConversation ||
+               (selectedConversation.is_group &&
+                selectedConversation.id == id)
+            ) {
+                router.visit(route("dashboard"));
+            }
+        });
         return () => {
             offCreated();
             offDeleted();
             offModalShow();
+            offGroupDelete();
         };
     }, [on]);
 

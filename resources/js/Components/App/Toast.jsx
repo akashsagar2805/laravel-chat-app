@@ -13,13 +13,13 @@ export default function Toast({ }) {
             setToasts((oldToasts) => [...oldToasts, { message, uuid }]);
 
             setTimeout(() => {
-                setToasts((oldToasts) => oldToasts.filter((toast) => toast.uuid!== uuid));
+                setToasts((oldToasts) => oldToasts.filter((toast) => toast.uuid !== uuid));
             }, 5000);
         });
     })
 
     return (
-        <div className="toast min-w-[280px]">
+        <div className="toast min-w-[280px] w-full xs:w-auto">
             {toasts.map((toast, index) => (
                 <div
                  key={toast.uuid}

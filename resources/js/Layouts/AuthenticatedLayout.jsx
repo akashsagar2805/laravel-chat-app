@@ -18,7 +18,7 @@ export default function Authenticated({ header, children }) {
 
     // below conversation is not a conversation table from db, it is different do not get confused.
     useEffect(() => {
-        console.log(conversations);
+        // console.log(conversations);
         conversations.forEach((conversation) => {
             let channel = `message.group.${conversation.id}`;
 
@@ -52,6 +52,16 @@ export default function Authenticated({ header, children }) {
                                 message.attachments.length + " attachments"}`,
                     })
                 });
+
+            if (conversation.is_group) {
+                Echo.private(`group.deleted.${conversation.id}`)
+                .listen("GroupDeleted", (e) => {
+                    emit("group.deleted", {id: e.id, name: e.name});
+                }).error((e) => {
+                    console.error(e);
+                });
+            }
+
         });
 
         return () => {
@@ -69,6 +79,9 @@ export default function Authenticated({ header, children }) {
 
                 // console.log("Stop listening on channel " + channel);
                 Echo.leave(channel);
+                if (conversation.is_group) {
+                    Echo.leave(`group.deleted.${conversation.id}`);
+                }
             })
         };
     }, [conversations]);
