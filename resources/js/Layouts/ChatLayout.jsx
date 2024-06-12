@@ -92,7 +92,7 @@ const ChatLayout = ({ children }) => {
                 return oldConversations.filter((con) => con.id != id);
             });
 
-            // emit('toast.show', `Group "${name}" deleted`); need to fix this later
+            emit('toast.show', `Group "${name}" deleted`);
 
             if (
                 !selectedConversation ||

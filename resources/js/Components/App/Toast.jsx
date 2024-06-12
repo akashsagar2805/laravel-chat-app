@@ -10,7 +10,7 @@ export default function Toast({ }) {
         on('toast.show', (message) => {
             const uuid = uuidv4();
 
-            setToasts((oldToasts) => [...oldToasts, { message, uuid }]);
+            setToasts([{ message, uuid }]);
 
             setTimeout(() => {
                 setToasts((oldToasts) => oldToasts.filter((toast) => toast.uuid !== uuid));
