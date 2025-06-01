@@ -71,7 +71,7 @@ class User extends Authenticatable
                     });
             })
             ->leftJoin('messages', 'conversations.last_message_id', '=', 'messages.id')
-            ->orderByRaw('IFNULL(users.blocked_at, 1)')
+            ->orderByRaw("COALESCE(users.blocked_at, '9999-12-31')")
             ->orderBy('messages.created_at', 'desc')
             ->orderBy('users.name');
 
